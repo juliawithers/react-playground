@@ -1,34 +1,43 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
 
 export default class Accordion extends Component {
-    state = {
-        currentId: null
+    static defaultProps = {
+        sections: []
     };
+    state = {
+        currentId: null,
+    }
 
-    setId=(secId)=>{
+    setId = (secId) => {
             this.setState({currentId: secId})
     }
 
     renderText(section,id,currentId){
-        <li class="list-info" key={id}>
-        <button
-        onClick={()=>setId(this.section.id)}
-        >
-            {section.title} 
-        </button>
-        
-            {(currentId === id && 
-            <p>
-                {sections.content}
-            </p>)}           
-        </li>  
+        return(
+            <li className="list-info" key={id}>
+                <button
+                type='button' 
+                onClick={() => this.setId(id)}
+                >
+                    {section.title} 
+                </button>
+            
+                {(currentId === id && 
+                <p>
+                    {section.content}
+                </p>)}           
+            </li>  
+        )
     }
 
     render(){
+        const { sections } = this.props
+        const { currentId } = this.state
         return(
             <ul>
-                {this.sections.map((section,id)=>
-                renderText(section,id,currentId)
+                {sections.map((section,id)=>
+                this.renderText(section,id,currentId)
                 )}
             
             </ul>
